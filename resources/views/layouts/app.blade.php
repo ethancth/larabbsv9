@@ -18,6 +18,7 @@
 
 <body>
 <div id="app" class="{{ route_class() }}-page">
+  
 
   @include('layouts._header')
 
@@ -28,6 +29,10 @@
     @yield('content')
 
   </div>
+
+  @if (config('app.debug'))
+        @include('sudosu::user-selector')
+    @endif
 
   @include('layouts._footer')
 </div>
