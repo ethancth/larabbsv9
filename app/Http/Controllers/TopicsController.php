@@ -17,9 +17,9 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	
+
 	public function index(Request $request, Topic $topic)
-    {    
+    {
         $topics = $topic->withOrder($request->order)
                         ->with('user', 'category')  // 预加载防止 N+1 问题
                         ->paginate(20);
@@ -31,7 +31,7 @@ class TopicsController extends Controller
         return view('topics.show', compact('topic'));
     }
 
-	
+
 
 	public function create(Topic $topic)
     {
@@ -45,7 +45,7 @@ class TopicsController extends Controller
         $topic->user_id = Auth::id();
         $topic->save();
 		//$topic = Topic::create($request->all());
-		
+
 		return redirect()->route('topics.show', $topic->id)->with('success', 'Created successfully.');
 	}
 
